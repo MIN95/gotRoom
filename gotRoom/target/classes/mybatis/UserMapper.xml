@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pro.mxpro.mybatis.UserMapper">
+	<select id="userCheck" resultType="int">
+		SELECT count(user_name) FROM userinfo WHERE USER_NAME = #{userName} AND SNS_TYPE = #{snsType}
+	</select>
+	
+	<select id="loginChek" resultType="userVO">
+		SELECT COUNT(USER_NAME) cnt,NICKNAME FROM USERINFO 
+		WHERE USER_NAME= #{userName} AND PASSWORD = #{password} AND SNS_TYPE = #{snsType} 
+	</select>
+	  
+	<insert id="createUser" parameterType="userVO">
+		INSERT INTO USERINFO(USER_NAME,PASSWORD,NICKNAME,EMAIL,SNS_TYPE) VALUES (#{userName},#{password},#{nickname},#{email},#{snsType})
+	</insert>
+</mapper>

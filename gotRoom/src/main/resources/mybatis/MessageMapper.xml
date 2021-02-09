@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pro.mxpro.mybatis.MessageMapper">
+	<select id="getUserId" resultType="int">
+		SELECT ID FROM USERINFO WHERE nickname= #{nickname}
+	</select>
+	
+	<select id="getUserNick" resultType="int">
+		SELECT NICKNAME FROM USERINFO WHERE ID= #{id}
+	</select> 
+	
+	<select id="getMessage" resultType="messageVO">
+		SELECT a.MYMSG_ID,a.PARTICIPANT1,a.PARTICIPANT2,b.SPEAKER,b.MSG_LOG,CONVERT_TZ(b.MSG_DATE, "+0:00", "-9:00") MSG_DATE
+		FROM(
+			SELECT MYMSG_ID,PARTICIPANT1,PARTICIPANT2 FROM MYMSG
+			WHERE MYMSG_ID = #{mymsgId}
+			) a
+		JOIN MESSAGE b ON A.MYMSG_ID = b.ROOM_NO
+	</select>  
+	
+	<select id="chkMymsg" resultType="Integer">
+		SELECT MYMSG_ID FROM MYMSG 
+		WHERE PARTICIPANT1 = #{participant1} AND PARTICIPANT2 = #{participant2}
+			OR PARTICIPANT1 = #{participant2} AND PARTICIPANT2 = #{participant1} 
+	</select>
+	
+	<insert id="newMymsg">
+		INSERT INTO MYMSG(PARTICIPANT1,PARTICIPANT2) VALUES (#{participant1},#{participant2})
+	</insert>		
+	
+	<select id="getAllMsg" resultType="messageVO">
+		SELECT t1.MYMSG_ID,t1.PARTICIPANT1,t1.nickname nickname1,t1.PARTICIPANT2,t2.nickname nickname2,t2.UPDATE_DATE FROM
+		(SELECT * FROM MYMSG a JOIN userinfo b 
+		ON a.PARTICIPANT1 = b.id) t1
+		JOIN 
+		(SELECT * FROM MYMSG a JOIN userinfo b 
+		ON a.PARTICIPANT2 = b.id) t2
+        ON t1.mymsg_id = t2.mymsg_id
+ 		WHERE t1.PARTICIPANT1 = #{id} OR t2.PARTICIPANT2 = #{id}
+        ORDER BY t2.UPDATE_DATE DESC
+	</select>
+	
+<!-- 	<select id="getAllMsg" resultType="chatVO"> -->
+<!-- 		SELECT  t1.room_id,t1.join_id,t1.user_id,t1.update_date,t2.nickname from -->
+<!-- 		(select a.room_id,a.join_id,a.user_id,a.update_date,b.nickname from chatroomjoin a join userinfo b on a.user_id = b.id) t1 -->
+<!-- 		join  -->
+<!-- 		(select c.room_id,d.nickname from chatroomjoin c join userinfo d on c.join_id = d.id) t2 -->
+<!-- 		on t1.room_id = t2.room_id where t1.user_id=#{id} or t1.join_id=#{id} -->
+<!-- 		ORDER BY t1.UPDATE_DATE DESC -->
+<!-- 	</select> -->
+</mapper>

@@ -1,0 +1,191 @@
+html, body { 
+		 width: 100%; 
+		 height: 100%;
+		 font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+	}
+	ul {
+		 list-style:none;
+	}
+	p {
+		margin: 0;
+	}
+	form {
+		margin: 0;
+	}
+	.aTag {
+		position: relative;
+		text-decoration:none;
+		display: inline-block;
+	    padding: 1px;
+	    color: #757575; 
+	    font-size: 16px;
+	    font-weight: 700;
+	    line-height: 43px;
+	}
+	.aTag:hover {
+		text-decoration: none; 
+	}
+	
+	.blind {
+		position: absolute;
+	    clip: rect(0 0 0 0);
+	    width: 1px;
+	    height: 1px;
+	    margin: -1px;
+	    overflow: hidden;
+	}
+	.xsBlock {
+			display: none; 
+	}
+	#logo {
+		text-align: left;
+		width: 130px; 
+	    height: 45px;
+	}
+	#logoImg { 
+		background-image: url("/resources/img/mainLogo.png");
+		background-size: 100% 100%;
+	    background-position: center;
+	    background-repeat:no-repeat;
+	    content: '';
+	    display: inline-block;
+	    width: 100%;  
+	    height: 100%;
+	}
+	#menubar { 
+		width: 100%;
+	} 
+	#menubar a{ 
+		margin: 0 9px 0 8px;
+	}
+	#query {
+		display: inline-block;
+    	width: 87%;
+	}
+	#submitBtn {
+		vertical-align: top;
+	} 
+	#loginBtn:after {
+		content: "";
+	    position: absolute;
+	    top: 9px;
+	    left: 100%;  
+	    bottom: 3px;
+	    margin-left: 8px;
+	    height: 28px;
+	    border-right: 1.5px solid #757575;
+	}
+	.modal { 
+		display: none;
+		} 
+	.modal.fade:not(.in) .modal-dialog {
+	    transform: translate3d(0%, 0, 0);
+		}
+	.bd-sidebar {
+		width: 370px;
+		height: 100vh;
+		padding: 24px;
+		font-weight: 700; 
+		background: #fff;
+		overflow: hidden !important;
+	}
+	.bd-sidebar .nav {
+	  	display: block;
+	  	padding: 1.2rem;
+	}
+	.bd-sidebar .nav>li>a {
+		display: block;
+		padding: 1.2rem 1.5rem;
+		font-size: 18px;
+		color: #424242;
+    	background: none;
+    	text-decoration: none;
+	}   
+	.bd-sidebar .nav>li>a>i {
+		 padding-right: 0.4rem;
+	}
+	#sideLogo input{ 
+		width: 115px; 
+	    height: 42px;
+	}
+	.bd-sidebar .btnWrap {
+		text-align: center;
+	}
+	.bd-sidebar .btn {
+		width: 127px;
+	    margin: 0 5px;
+	    padding: 9px 16px;
+	    font-size: 19px;
+	    line-height: 20px;
+	}
+	#inputWrap {
+		display: inline-block;
+		width: 90%;
+	}
+	.sh-sidebar {
+		width: 100%; 
+		height: 100vh;
+		font-weight: 700; 
+		background: #fff;
+		overflow: hidden !important;
+	}
+	.sh-sidebar>div {
+	  	display: block;
+	  	padding: 0.5rem;
+	}
+	.sh-sidebar .searchListWrap {
+		padding: 14px 0px 0px 13px;
+	}
+	#navMenu {
+		width: 100%;
+		box-shadow: 0px 0.5px 2px 0.5px rgb(0,0,0,0.12);
+	}
+	
+/* ¹Ìµð¾îÄõ¸® */
+@media only screen and (max-width: 768px) {
+/* 	.container { */
+/*     	max-width: 100%; */
+/* 	} */
+	#logo {
+		display: inline-block;
+	}
+	#logoImg {
+		width:122px;
+    	height: 41px;
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%,-50%);
+	}
+	.xsBlock {
+		display: inline-block;
+		padding: 1px;
+		margin-top: 6px;
+	}
+	.xsNone {
+		display: none; 
+	} 
+	#searchModal {
+		padding: 0 !important;
+	}
+	 
+	#searchModal .modal-dialog {
+		max-width: 100%;
+	}
+}
+@media (min-width: 768px) {
+	#searchModal .modal-dialog {
+		max-width: 650px;
+	}
+	#query {
+		display: inline-block;
+    	width: 80%;
+	}
+}
+
+@media (min-width: 1200px) {
+	#query {
+    	width: 89%;
+	}
+}
+
