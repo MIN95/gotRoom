@@ -1,6 +1,8 @@
 package com.pro.mxpro.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -14,8 +16,12 @@ public class MessageDAO {
 	
 	private static final String NAMESPACE = "com.pro.mxpro.mybatis.MessageMapper";
 	
-	public List<MessageVO> getMessage(int mymsgId){
-		return sqlSession.selectList(NAMESPACE + ".getMessage",mymsgId);
+	public int countMessage(int mymsgId){
+		return sqlSession.selectOne(NAMESPACE + ".countMessage",mymsgId);
+	}
+	
+	public List<MessageVO> getMessage(Map<String, Object> map){
+		return sqlSession.selectList(NAMESPACE + ".getMessage",map);
 	}
 
 	public int getUserId(String nickname) {
@@ -34,4 +40,9 @@ public class MessageDAO {
 	public List<MessageVO> getAllMsg(int id) {
 		return sqlSession.selectList(NAMESPACE + ".getAllMsg",id);
 	}
+
+	public void insertMessage(MessageVO messageVO) {
+		sqlSession.insert(NAMESPACE + ".insertMsg",messageVO);
+	}
+
 }

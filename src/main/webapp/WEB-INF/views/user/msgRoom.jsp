@@ -57,9 +57,8 @@
 		background-color: #d9fff2;
 	}  
 	#messageArea {
-		min-height: 450px;  
-		max-height: 450px;    
-		overflow: auto;
+		height: 450px;   
+ 		overflow: auto;
 		background-color:#d9fff2;
 		padding-top: 15px; 
 	} 
@@ -83,12 +82,12 @@
 <div class="container-fluid">
 <div class="row"> 
 	<div id="targetUser" class="text-center col-md-12" >
-		<c:out value="${targetUserid}"></c:out>
+		<c:out value="${targetUserid}"/>
 	</div> 
 	<div class="col-md-12" id="messageArea">
 		<c:forEach var="list" items="${list}"> 
-			<div id="chatName"><c:out value="${list.speaker eq list.participant1 ? null: targetUserid }"/></div>
-			<c:if test="${list.speaker eq list.participant1}">
+			<div id="chatName"><c:out value="${list.speaker eq id ?'': targetUserid }"/></div>
+			<c:if test="${list.speaker eq id }">
 				<div class="bWrap me"> 
 		     		<div class="chatTime"><fmt:formatDate value="${list.msgDate }" type="time" timeStyle="short"/></div>
 					<div class="bubble"> 
@@ -96,7 +95,7 @@
 		     		</div>  
 	     		</div>  
 			</c:if>  
-			<c:if test="${list.speaker ne list.participant1}">
+			<c:if test="${list.speaker ne id }">
 				<div class="bWrap you"> 
 					<div class="bubble"> 
 						<c:out value="${list.msgLog }"/> 
@@ -127,15 +126,41 @@
 var sock = null;
 var stompClient = null;
 $(document).ready(function(){ 
-	$("#messageArea").scrollTop($("#messageArea")[0].scrollHeight);
 	connect();
+	GetMessage();
+}); 
+
+var pageMax = (Math.ceil("${count}"/10)* 10);
+var page = 0;
+$("#messageArea").scroll(function(){
+	if(page < pageMax){
+	    if($("#messageArea").scrollTop() == 0){     
+	    	GetMessage();  
+	    }  
+	} 
 });
-function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-            results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
+function GetMessage() { 
+	var form = { 
+			"id" : "${id }",
+			"targetUserid" : "${targetUserid }",
+			"page" : page,
+			"mymsgId" : "${mymsgId}"
+    }  
+    $.ajax({ 
+        url: "/user/getMsg", 
+        type: "POST",
+        contentType:"application/json;charset=UTF-8",
+        data: JSON.stringify(form),  
+        success: function(data){ 
+       		$('#messageArea').prepend(data);  
+       	 	page = page + 10;
+       	 	$("#messageArea").animate({scrollTop: (450)},100);
+        },
+        error: function(){
+            console.log("err");
+        }
+    });	
+} 
 
 $("body").keydown(function(key) {
 	var message = $.trim($("#message").val());
@@ -153,11 +178,15 @@ $("#sendBtn").click(function() {
 	}
 });
 
+var sesessionId = "";
 function connect() {
 	var socket = new SockJS('/chat');
 	stompClient = Stomp.over(socket);
 	// SockJS와 stomp client를 통해 연결을 시도.
-	stompClient.connect({},function(frame){ 
+	stompClient.connect({},function(frame){
+		let url = socket._transport.url;
+		let arr = url.split('/');
+		sessionId = arr[5];
 		stompClient.subscribe('/topic/messages/${mymsgId}',function(response){
 			showChat(JSON.parse(response.body));
 		});
@@ -172,12 +201,12 @@ function disconnect() {
 	console.log("Disconnected");
 }
 
-var targetUserid = getParameterByName('targetUserid');
 function sendChat() {
 	var message = $.trim($("#message").val());
-	stompClient.send("/app/chat", {}, JSON.stringify({'name': '${sessionScope.loginUser}','mymsgId': '${mymsgId}','message': message}));
+	stompClient.send("/app/chat", {}, JSON.stringify({'sessionId': sessionId,'name': '${sessionScope.loginUser}','mymsgId': '${mymsgId}','message': message}));
 	$('#message').val('');
 }
+
 function showChat(chat) {
 	var now = new Date(chat.time);
 	var mmt = moment(now);

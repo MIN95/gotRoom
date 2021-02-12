@@ -7,6 +7,7 @@ public class ChatVO {
 	private String name;
 	private String message;
 	private Date time;
+	private String sessionId;
 	
 	public ChatVO() {
 	}
@@ -35,8 +36,11 @@ public class ChatVO {
 	public void setTime(Date time) {
 		this.time = time;
 	}
-	@Override
-	public String toString() {
-		return "ChatVO [mymsgId=" + mymsgId + ", name=" + name + ", message=" + message + ", time=" + time + "]";
+	public String getSessionId() {
+		return sessionId;
 	}
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+	
 }

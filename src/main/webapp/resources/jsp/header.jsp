@@ -101,7 +101,7 @@
 		    <c:when test="${not empty sessionScope.loginUser }">    
 				<div> 
 			        <a class="aTag" href="javascrpt:"><span class="badge badge-light">${sessionScope.loginUser }님</span></a>
-			        <a class="aTag" href="/user/mymsg"><span class="badge badge-light">내쪽지<i class="fas fa-envelope"></i></span></a>  
+			        <a class="aTag" href="/user/mymsg"><span class="badge badge-light">내쪽지<i class="fas fa-envelope" style="color: #339af0;margin-left: 2px;"></i></span></a>  
 			        <a class="aTag" id="logout" style="cursor: pointer;">로그아웃</a>
 			    </div>
 		    </c:when>  

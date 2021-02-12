@@ -53,10 +53,4 @@ public class Criteria {
 	public void setSearch(String search) {
 		this.search = search;
 	}
-
-	@Override
-	public String toString() {
-		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", selectOption=" + selectOption + ", search="
-				+ search + "]";
-	}
 }

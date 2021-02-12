@@ -22,7 +22,7 @@
 	}
 	
 	.hiddenBox li{
-		border-bottom: 1px solid #f1f1f1!important;
+		border-bottom: 1px solid #f1f1f1 !important;
 	}
 	.boardList {
 		min-height: 480px;
@@ -32,6 +32,9 @@
 	}
 	.boardList .contents .item {
 		display: inline-block;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	    overflow: hidden !important;
 	}
 	.writerWrap {
 		width: 20%;
@@ -65,7 +68,7 @@
 			<c:forEach var="list" items="${list}">
 			<div class="contents">
 		     	<div class="text-center item aTag" style="width: 12%"><c:out value="${list.boardNo}"/></div>
-		     	<div class="text-left item" style="width: 33%"> 
+		     	<div class="text-left item" style="width: 31%;"> 
 			     	<a class="aTag" href="/board/detail/${list.boardNo }">
 		     			<c:if test="${map.selectOption eq 's' or map.selectOption eq 't'}">
 				     		<c:choose>

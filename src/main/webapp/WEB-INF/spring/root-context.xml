@@ -17,8 +17,8 @@
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
         <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
         <property name="url" value="jdbc:log4jdbc:mysql://127.0.0.1:3306/gotroomdb?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8" />
-        <property name="username" value="////"></property>
-        <property name="password" value="////"></property>
+        <property name="username" value="admin"></property>
+        <property name="password" value="mysql"></property>
   	</bean> 
     
     <!-- sqlSessionFactory --> 

@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory;
 
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 	private static Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
 	
 	@Override
-	public void registerStompEndpoints(StompEndpointRegistry registry) {
+	public void registerStompEndpoints(StompEndpointRegistry registry){
 		logger.info("{}","技记立加");
 		registry.addEndpoint("/chat").setAllowedOrigins("*").withSockJS();
 	}

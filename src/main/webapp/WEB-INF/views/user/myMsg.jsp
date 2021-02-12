@@ -51,7 +51,7 @@ function sendWebMsg(targetUserid){
         	}
         },
         error: function(){
-            alert("err");
+            console.log("err");
         }
     });
 }

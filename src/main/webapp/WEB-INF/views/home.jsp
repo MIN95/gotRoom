@@ -16,7 +16,13 @@
 				<div><h4><i class="far fa-newspaper"></i><span style="margin-left: 8px;">부동산 핫이슈</span></h4></div>
 				<div class="border border-bottom-0 rounded">
 					<c:forEach var="newsList" items="${newsList}">
-						<div class="news border-bottom"><div class="rounded newsThumb" style="${fn:replace(newsList.thumbnail,'"',null)}"></div>
+						<div class="news border-bottom">
+						<c:if test="${newsList.thumbnail ne '' }">
+							<div class="rounded newsThumb" style="${fn:replace(newsList.thumbnail,'"','')}"></div>
+						</c:if>
+						<c:if test="${newsList.thumbnail eq '' }">
+							<div class="rounded newsThumb" style="background-image: url(/resources/img/no_img.jpg);"></div>
+						</c:if>
 							<div class="newsItem">
 								<c:out value="${newsList.title}"></c:out><div><c:out value="${newsList.source}"></c:out></div>
 							</div>
@@ -37,10 +43,10 @@
 	</div>
 	<div class="row"> 
 		<c:forEach var="list" items="${list}"> 
-			<div class="col-lg-3 col-md-3 col-sm-4 col-6 p-1 border border-right-0 border-bottom-0 Item"> 
+			<div class="col-lg-3 col-md-3 col-sm-6 col-6 p-1 border border-right-0 border-bottom-0 Item"> 
 				<div class="itemInner">
 					<div class="thumbnail">
-						<div class="rounded" style="${fn:replace(list.pic,'"',null)}"></div>
+						<div class="rounded" style="${fn:replace(list.pic,'"','')}"></div>
 					</div>
 					<div class="titleArea">
 						<span class="title"><c:out value="${list.name }"/></span>
@@ -144,7 +150,7 @@ function sendChat() {
 }
 
 function showChat(chat) {
-	$("#messageArea").append('<div style="padding:3px;margin-top:3px;">'+chat.name+" : " + chat.message + "<br/></div>");
+	$("#messageArea").append('<div style="padding:2px;margin-left:5px;">'+chat.name+" : " + chat.message + "<br/></div>");
 	$("#messageArea").scrollTop($("#messageArea")[0].scrollHeight);
 }		
 </script>

@@ -4,26 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.PostConstruct;
-
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CrawlingHandler{
 	
-	public static List<Map<String,String>> getMainData(ChromeDriver driver) {
+	public List<Map<String,String>> getMainData(ChromeDriver driver) {
+		//no_img 贸府
 		JavascriptExecutor js = ((JavascriptExecutor)driver);
 		String order = "$('.Item .NoImage').append('<div class=\"Thumbnail\" style=\"background-image:url(/resources/img/no_img.jpg);\"></div>');";
-		js.executeScript(order); 
-        // 单捞磐啊廉坷扁
+		js.executeScript(order);
+		//data 农费傅
 		List<WebElement> realtyUrl = driver.findElementsByCssSelector("div.HomeListWrap  div.Item > a");
-		// no-image 贸府
         List<WebElement> realtyName = driver.findElementsByCssSelector("div.HomeListWrap  div.TitleArea > span");
         List<WebElement> pic = driver.findElementsByCssSelector("div.HomeListWrap .ItemInner div.Thumbnail");
         List<WebElement> price = driver.findElementsByCssSelector("div.HomeListWrap  div.PriceArea");

@@ -1,19 +1,16 @@
 package com.pro.mxpro;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,7 +41,7 @@ public class HomeController {
 		ChromeDriver driver = new ChromeDriver( options );
 		String location = "https://isale.land.naver.com/NewiSaleMobile/Home/#SYHome?SYMap=37.566427:126.977872:12&a=IA01:IA02:IC01&s=reg_date";
         driver.get(location);
-        driver.manage().timeouts().implicitlyWait(4,TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		this.driver = driver;
 	}
 	
